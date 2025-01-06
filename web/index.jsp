@@ -1,4 +1,7 @@
+<%@page import="com.tech.blog.helper.ConnectionProvider"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.sql.*" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -11,7 +14,13 @@
     <body>
         <h1>Hello World!</h1>
 
+        <hr>
 
+        <%
+            Connection con=ConnectionProvider.getConnection();
+        %>
+
+        <h1><%=con%></h1>
 
         <!--Javascripts-->
 
