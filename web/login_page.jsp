@@ -43,14 +43,18 @@
                                     </div>
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                        <label class="form-check-label" for="exampleCheck1">Agree terms and conditions</label>
+                                    </div>
+
+                                    <br> 
+
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-primary primary-background">Login</button>
                                     </div>
                                 </form>
                             </div>
 
-                            <div class="card-footer text-center">
-                                <button type="submit" class="btn btn-primary primary-background">Login</button>
-                            </div>
+
                         </div>
                     </div>
                 </div>
