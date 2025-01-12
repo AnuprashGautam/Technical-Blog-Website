@@ -119,7 +119,7 @@
                                         });
                             } else
                             {
-                                swal(data);
+                                swal("Already an account exists with this email. Try another email.");
                             }
 
                         },

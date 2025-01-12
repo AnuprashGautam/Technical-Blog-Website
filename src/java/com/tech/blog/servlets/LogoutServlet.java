@@ -1,9 +1,6 @@
 package com.tech.blog.servlets;
 
-import com.tech.blog.dao.UserDao;
 import com.tech.blog.entities.Message;
-import com.tech.blog.entities.User;
-import com.tech.blog.helper.ConnectionProvider;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,38 +9,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author anupr
- */
-public class LoginServlet extends HttpServlet {
+public class LogoutServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            HttpSession session=request.getSession();
             
-            // Fetch the email and password form the login form.
+            session.removeAttribute("currentUser");
             
-            String email=request.getParameter("email");
-            String password=request.getParameter("password");
+            Message msg=new Message("Logout Successfully.", "success", "alert-success");
             
-            UserDao dao=new UserDao(ConnectionProvider.getConnection());
-            User user=dao.getUserByEmailAndPassword(email, password);
+            session.setAttribute("msg",msg);
             
-            if (user==null) {
-                // Need to register first.
-                Message msg= new Message("Invalid Details ! try with another.", "error", "alert-danger");
-                HttpSession session=request.getSession();
-                session.setAttribute("msg",msg);
-                
-                response.sendRedirect("login_page.jsp");
-            }else{
-                // Let the user login.
-                HttpSession session=request.getSession();
-                session.setAttribute("currentUser",user);
-                response.sendRedirect("profile.jsp");
-            }
+            response.sendRedirect("login_page.jsp");
         }
     }
 
