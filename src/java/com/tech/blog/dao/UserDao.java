@@ -82,16 +82,16 @@ public class UserDao {
         boolean f=false;
         
         try {
-            String query="UPDATE user SET name=? , email=? , password=? , gender=? , about=? , profile=?";
+            String query="UPDATE user SET name=? , email=? , password=? , about=? , profile=? WHERE id=?";
             
             PreparedStatement pstmt=con.prepareStatement(query);
             
             pstmt.setString(1, user.getName());
             pstmt.setString(2, user.getEmail());
             pstmt.setString(3, user.getPassword());
-            pstmt.setString(4, user.getGender());
-            pstmt.setString(5, user.getAbout());
-            pstmt.setString(6, user.getProfile());
+            pstmt.setString(4, user.getAbout());
+            pstmt.setString(5, user.getProfile());
+            pstmt.setInt(6, user.getId());
             
             pstmt.executeUpdate();
             f=true;

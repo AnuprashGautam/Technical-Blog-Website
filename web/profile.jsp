@@ -1,4 +1,5 @@
 <%@page import="com.tech.blog.entities.User"%>
+<%@page import="com.tech.blog.entities.Message"%>
 <%@page errorPage="error_page.jsp" %>
 
 <%
@@ -68,8 +69,28 @@
                 </ul>
             </div>
         </nav>
-        <!<!-- End of navbar -->
+        
+                    <!-- End of navbar -->
 
+        <!-- Update message start-->
+
+        <%
+            Message msg = (Message) session.getAttribute("msg");
+
+            if (msg != null) {
+        %>
+
+        <div class="alert <%= msg.getCssClass()%>" role="alert">
+            <%= msg.getContent()%>
+        </div>
+
+        <%
+                session.removeAttribute("msg");
+            }
+        %>
+
+        <!--Update message end-->
+        
         <!-- Start of Profile Modal -->
 
         <div class="modal fade" id="profile-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -105,7 +126,7 @@
                                         </tr>
                                         <tr>
                                             <th scope="row"> Gender :</th>
-                                            <td><%= user.getGender()%></td>
+                                            <td><%= user.getGender().toUpperCase()%></td>
 
                                         </tr>
                                         <tr>
