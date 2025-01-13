@@ -138,10 +138,6 @@
                                             <td><input type="email" name="user_email" class="form-control" value="<%= user.getEmail()%>"></td>
                                         </tr>
                                         <tr>
-                                            <td>Email :</td>
-                                            <td><input type="email" name="user_email" class="form-control" value="<%= user.getEmail()%>"></td>
-                                        </tr>
-                                        <tr>
                                             <td>Name :</td>
                                             <td><input type="text" name="user_name" class="form-control" value="<%= user.getName()%>"></td>
                                         </tr>
