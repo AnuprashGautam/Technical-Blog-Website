@@ -90,41 +90,94 @@
 
                             <!--Details-->
 
-                            <table class="table">
-                                
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">ID :</th>
-                                        <td><%= user.getId()%></td>
-                                      
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Email :</th>
-                                        <td><%= user.getEmail()%></td>
-                                       
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"> Gender :</th>
-                                        <td><%= user.getGender()%></td>
-                                        
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"> Status :</th>
-                                        <td><%= user.getAbout()%></td>
-                                        
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"> Registered on :</th>
-                                        <td><%= user.getRdate().toString()%></td>
-                                        
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div id="profile-details">
+                                <table class="table">
+
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">ID :</th>
+                                            <td><%= user.getId()%></td>
+
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Email :</th>
+                                            <td><%= user.getEmail()%></td>
+
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"> Gender :</th>
+                                            <td><%= user.getGender()%></td>
+
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"> Status :</th>
+                                            <td><%= user.getAbout()%></td>
+
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"> Registered on :</th>
+                                            <td><%= user.getRdate().toString()%></td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!--profile edit-->  
+
+                            <div id="profile-edit" style="display: none;">
+                                <h3 class="mt-2">Please Edit Carefully</h3>
+                                <form action="EditServlet" method="POST">
+                                    <table class="table">
+                                        <tr>
+                                            <td>ID :</td>
+                                            <td><%= user.getId()%></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Email :</td>
+                                            <td><input type="email" name="user_email" class="form-control" value="<%= user.getEmail()%>"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Email :</td>
+                                            <td><input type="email" name="user_email" class="form-control" value="<%= user.getEmail()%>"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Name :</td>
+                                            <td><input type="text" name="user_name" class="form-control" value="<%= user.getName()%>"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Password :</td>
+                                            <td><input type="password" name="user_password" class="form-control" value="<%= user.getPassword()%>"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Gender :</td>
+                                            <td><%= user.getGender().toUpperCase()%></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Status :</td>
+                                            <td>
+                                                <textarea rows=3 class="form-control" name="user_about"><%=user.getAbout()%>
+                                                </textarea>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>New Profile:</td>
+                                            <td>
+                                                <input type="file" name="image" class="form-control">
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                    <div class="container">
+                                        <button type="submit" class="btn btn-outline-primary">Save</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Edit</button>
+                        <button type="button" id="edit-profile-button" class="btn btn-primary">Edit</button>
                     </div>
                 </div>
             </div>
@@ -137,5 +190,27 @@
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+        <script>
+            $(document).ready(function () {
+                let editStatus = false;
+
+                $('#edit-profile-button').click(function () {
+                    if (editStatus == false)
+                    {
+                        $('#profile-details').hide();
+                        $('#profile-edit').show();
+                        editStatus = true;
+                        $(this).text("Back");
+                    } else
+                    {
+                        $('#profile-details').show();
+                        $('#profile-edit').hide();
+                        editStatus = false;
+                        $(this).text("Edit");
+                    }
+                });
+            });
+        </script>
     </body>
 </html>
