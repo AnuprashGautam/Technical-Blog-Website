@@ -13,6 +13,7 @@ public class UserDao {
     }
 
     // Method to insert user to data base.
+    
     public boolean saveUser(User user) {
         // This method will save the details of user object to the database.
         boolean f=false;
@@ -74,4 +75,29 @@ public class UserDao {
         return user;
     }
 
+    // Method to update the details of the user.
+    
+    public boolean updateUser(User user)
+    {
+        boolean f=false;
+        
+        try {
+            String query="UPDATE user SET name=? , email=? , password=? , gender=? , about=? , profile=?";
+            
+            PreparedStatement pstmt=con.prepareStatement(query);
+            
+            pstmt.setString(1, user.getName());
+            pstmt.setString(2, user.getEmail());
+            pstmt.setString(3, user.getPassword());
+            pstmt.setString(4, user.getGender());
+            pstmt.setString(5, user.getAbout());
+            pstmt.setString(6, user.getProfile());
+            
+            pstmt.executeUpdate();
+            f=true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return f;
+    }
 }
