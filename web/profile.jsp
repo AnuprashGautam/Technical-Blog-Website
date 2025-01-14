@@ -1,3 +1,7 @@
+<%@page import="com.tech.blog.entities.Category"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.tech.blog.helper.ConnectionProvider"%>
+<%@page import="com.tech.blog.dao.PostDao"%>
 <%@page import="com.tech.blog.entities.User"%>
 <%@page import="com.tech.blog.entities.Message"%>
 <%@page errorPage="error_page.jsp" %>
@@ -54,6 +58,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#"><span class="fa fa-address-book-o"></span> Contact</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-toggle="modal" data-target="#add-post-modal"><span class="fa fa-pencil-square-o"></span> Do Post</a>
+                    </li>
 
 
                 </ul>
@@ -69,8 +76,8 @@
                 </ul>
             </div>
         </nav>
-        
-                    <!-- End of navbar -->
+
+        <!-- End of navbar -->
 
         <!-- Update message start-->
 
@@ -90,7 +97,7 @@
         %>
 
         <!--Update message end-->
-        
+
         <!-- Start of Profile Modal -->
 
         <div class="modal fade" id="profile-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -201,6 +208,60 @@
 
         <!-- End of Profile Modal -->
 
+        <!--Start of Post modal-->
+
+        <!-- Modal -->
+        <div class="modal fade" id="add-post-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Provide the post details.</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="AddPostServlet" method="POST">
+                            <div class="form-group">
+                                <select class="form-control">
+                                    <option selected disabled>---Select Category---</option>
+                                    <%
+                                    PostDao postd=new PostDao(ConnectionProvider.getConnection());
+                                    ArrayList<Category> list=postd.getAllCategories();
+                                    for(Category c:list)
+                                    {
+                                    %>
+                                        <option><%= c.getName()%></option>
+                                    <%
+                                    }
+                                    %>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" placeholder="Enter post Title" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" style="height:200px;" placeholder="Enter your content" ></textarea>
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" style="height:100px;" placeholder="Enter your program (if any)" ></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Select your pic</label>
+                                <br>
+                                <input type="file" class="form-control">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--End of Post modal-->
 
         <!--JavaScript-->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
