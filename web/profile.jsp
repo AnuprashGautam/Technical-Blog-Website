@@ -108,7 +108,7 @@
                         <!--categories-->
 
                         <div class="list-group">
-                            <a href="#" onClick="getPosts(0)" class="list-group-item list-group-item-action active">
+                            <a href="#" onClick="getPosts(0,this)" class="c-link list-group-item list-group-item-action active">
                                 All Posts
                             </a>
                             <%
@@ -116,7 +116,7 @@
                                 ArrayList<Category> list = d.getAllCategories();
                                 for (Category cc : list) {
                             %>
-                            <a href="#" onClick="getPosts(<%=cc.getCid()%>)" class="list-group-item list-group-item-action"><%= cc.getName()%></a>
+                            <a href="#" onClick="getPosts(<%=cc.getCid()%>,this)" class="c-link list-group-item list-group-item-action"><%= cc.getName()%></a>
                             <%
                                 }
                             %>
@@ -377,9 +377,11 @@
 
         <!--Loading post using ajax-->
         <script>
-            function getPosts(catId) {
+            function getPosts(catId,temp) {
                 $("#loader").show();
                 $("#post-container").hide();
+                
+                $(".c-link").removeClass('active');
 
                 $.ajax({
                     url: "load_posts.jsp",
@@ -390,11 +392,13 @@
                         $("#loader").hide();
                         $("#post-container").show();
                         $("#post-container").html(data);
+                        $(temp).addClass('active');
                     }
                 });
             }
             $(document).ready(function (e) {
-                getPosts(0)
+                let allPostRef=$('.c-link')[0]
+                getPosts(0,allPostRef)
             });
         </script>
     </body> 
