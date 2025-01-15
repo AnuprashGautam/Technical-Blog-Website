@@ -37,8 +37,9 @@ public class AddPostServlet extends HttpServlet {
             HttpSession session = request.getSession();
             User user = (User) session.getAttribute("currentUser");
 
+            
+            // Saving the details using the savePost() method of PostDao class.
             Post p = new Post(pTitle, pContent, pCode, part.getSubmittedFileName(), null, cid, user.getId());
-
             PostDao postDao = new PostDao(ConnectionProvider.getConnection());
 
             if (postDao.savePost(p)) {
