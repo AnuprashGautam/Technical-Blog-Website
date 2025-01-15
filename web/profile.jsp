@@ -221,41 +221,39 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="AddPostServlet" method="POST">
+                        <form id="add-post-form" action="AddPostServlet" method="POST" enctype="multipart/form-data">
                             <div class="form-group">
-                                <select class="form-control">
+                                <select name="cid" class="form-control">
                                     <option selected disabled>---Select Category---</option>
                                     <%
-                                    PostDao postd=new PostDao(ConnectionProvider.getConnection());
-                                    ArrayList<Category> list=postd.getAllCategories();
-                                    for(Category c:list)
-                                    {
+                                        PostDao postd = new PostDao(ConnectionProvider.getConnection());
+                                        ArrayList<Category> list = postd.getAllCategories();
+                                        for (Category c : list) {
                                     %>
-                                        <option><%= c.getName()%></option>
+                                    <option value="<%= c.getCid()%>"><%= c.getName()%></option>
                                     <%
-                                    }
+                                        }
                                     %>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <input type="text" placeholder="Enter post Title" class="form-control">
+                                <input name="pTitle" type="text" placeholder="Enter post Title" class="form-control">
                             </div>
                             <div class="form-group">
-                                <textarea class="form-control" style="height:200px;" placeholder="Enter your content" ></textarea>
+                                <textarea name="pContent" class="form-control" style="height:200px;" placeholder="Enter your content" ></textarea>
                             </div>
                             <div class="form-group">
-                                <textarea class="form-control" style="height:100px;" placeholder="Enter your program (if any)" ></textarea>
+                                <textarea name="pCode" class="form-control" style="height:100px;" placeholder="Enter your program (if any)" ></textarea>
                             </div>
                             <div class="form-group">
                                 <label>Select your pic</label>
                                 <br>
-                                <input type="file" class="form-control">
+                                <input name="pic" type="file" class="form-control">
+                            </div>
+                            <div class="container text-center">
+                                <button type="submit" class="btn btn-outline-primary">Post</button>
                             </div>
                         </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
                     </div>
                 </div>
             </div>
@@ -288,6 +286,41 @@
                     }
                 });
             });
+        </script>
+
+        <!--Now add post js-->
+        <script>
+            $(document).ready(function (e) {
+                // Attach a submit event listener to the form
+                $("#add-post-form").on("submit", function (event) {
+                    // Prevent the default form submission behavior
+                    event.preventDefault();
+
+                    // Log a message to the console to confirm the event handler is working
+                    console.log("You have clicked the submit button.");
+
+                    // Create a FormData object with the form's data
+                    let form = new FormData(this);
+
+                    // Make an AJAX request to submit the form data to the server
+                    $.ajax({
+                        url: "AddPostServlet", // Server-side endpoint
+                        type: 'POST', // HTTP method
+                        data: form, // Form data
+                        success: function (data, textStatus, jqXHR) {
+                            // Log a success message if the request is successful
+                            console.log(data);
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            // Log an error message if the request fails
+                            console.log("Error in submission:", errorThrown);
+                        },
+                        processData: false, // Prevent automatic processing of data
+                        contentType: false // Prevent automatic setting of content type
+                    });
+                });
+            });
+
         </script>
     </body>
 </html>
