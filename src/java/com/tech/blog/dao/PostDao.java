@@ -96,7 +96,7 @@ public class PostDao {
     }
     
     // Method to get all the posts by category.
-    public List<Post> getPostByCatId(int catId){
+    public List<Post> getPostsByCatId(int catId){
          List<Post> list = new ArrayList<>();
         
         // Fetch all the posts by id.

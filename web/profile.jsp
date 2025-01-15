@@ -108,7 +108,7 @@
                         <!--categories-->
 
                         <div class="list-group">
-                            <a href="#" class="list-group-item list-group-item-action active">
+                            <a href="#" onClick="getPosts(0)" class="list-group-item list-group-item-action active">
                                 All Posts
                             </a>
                             <%
@@ -116,9 +116,9 @@
                                 ArrayList<Category> list = d.getAllCategories();
                                 for (Category cc : list) {
                             %>
-                                    <a href="#" class="list-group-item list-group-item-action"><%= cc.getName()%></a>
+                            <a href="#" onClick="getPosts(<%=cc.getCid()%>)" class="list-group-item list-group-item-action"><%= cc.getName()%></a>
                             <%
-                                        }
+                                }
                             %>
                         </div>
                     </div>
@@ -130,9 +130,9 @@
                             <i class="fa fa-refresh fa-4x fa-spin"></i>
                             <h3 class="mt-2">Loading...</h3>
                         </div>
-                        
+
                         <div class="container-fluid" id="post-container">
-                            
+
                         </div>
                     </div>   
                 </div>
@@ -312,25 +312,25 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
         <script>
-            $(document).ready(function () {
-                let editStatus = false;
+                                $(document).ready(function () {
+                                    let editStatus = false;
 
-                $('#edit-profile-button').click(function () {
-                    if (editStatus == false)
-                    {
-                        $('#profile-details').hide();
-                        $('#profile-edit').show();
-                        editStatus = true;
-                        $(this).text("Back");
-                    } else
-                    {
-                        $('#profile-details').show();
-                        $('#profile-edit').hide();
-                        editStatus = false;
-                        $(this).text("Edit");
-                    }
-                });
-            });
+                                    $('#edit-profile-button').click(function () {
+                                        if (editStatus == false)
+                                        {
+                                            $('#profile-details').hide();
+                                            $('#profile-edit').show();
+                                            editStatus = true;
+                                            $(this).text("Back");
+                                        } else
+                                        {
+                                            $('#profile-details').show();
+                                            $('#profile-edit').hide();
+                                            editStatus = false;
+                                            $(this).text("Edit");
+                                        }
+                                    });
+                                });
         </script>
 
         <!--Now add post js-->
@@ -374,19 +374,27 @@
             });
 
         </script>
-        
+
         <!--Loading post using ajax-->
         <script>
-            $(document).ready(function(e){
+            function getPosts(catId) {
+                $("#loader").show();
+                $("#post-container").hide();
+
                 $.ajax({
-                    url:"load_posts.jsp",
-                    success: function(data, textStatus, jqXHR)
+                    url: "load_posts.jsp",
+                    data: {cid: catId},
+                    success: function (data, textStatus, jqXHR)
                     {
                         console.log(data);
                         $("#loader").hide();
+                        $("#post-container").show();
                         $("#post-container").html(data);
                     }
                 });
+            }
+            $(document).ready(function (e) {
+                getPosts(0)
             });
         </script>
     </body> 
