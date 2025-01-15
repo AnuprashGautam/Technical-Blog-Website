@@ -68,7 +68,7 @@ public class PostDao {
         
         // Fetch all the posts.
         try {
-            String query="SELECT * FROM posts";
+            String query="SELECT * FROM posts ORDER BY pid DESC";
             
             PreparedStatement pstmt=con.prepareStatement(query);
             ResultSet set=pstmt.executeQuery();
@@ -101,7 +101,7 @@ public class PostDao {
         
         // Fetch all the posts by id.
         try {
-            String query="SELECT * FROM posts WHERE catId=?";
+            String query="SELECT * FROM posts WHERE catId=? ORDER BY pid DESC";
             
             PreparedStatement pstmt=con.prepareStatement(query);
             pstmt.setInt(1, catId);
