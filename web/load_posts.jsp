@@ -1,3 +1,4 @@
+<%@page import="com.tech.blog.dao.LikeDao"%>
 <%@page import="com.tech.blog.dao.PostDao"%>
 <%@page import="com.tech.blog.entities.Post"%>
 <%@page import="java.util.List"%>
@@ -32,7 +33,12 @@
             <div class="card-footer d-flex justify-content-between">
                 <!-- Left section with like and comment buttons -->
                 <div>
-                    <a href="#!" class="btn btn-outline-light primary-background btn-sm"><i class="fa fa-thumbs-o-up"></i><span> 10</span></a>
+                    <%
+                        LikeDao ld=new LikeDao(ConnectionProvider.getConnection());
+                        
+
+                    %>
+                    <a href="#!" class="btn btn-outline-light primary-background btn-sm"><i class="fa fa-thumbs-o-up"></i><span> <%=ld.countLikeOnPost(p.getPid())%></span></a>
                     <a href="#!" class="btn btn-outline-light primary-background btn-sm"><i class="fa fa-commenting"></i><span> 20</span></a>
                 </div>
 
