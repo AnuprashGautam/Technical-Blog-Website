@@ -30,6 +30,26 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link href="css/mystyle.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <style>
+            .post-title{
+                font-weight: 100;
+                font-size: 30px;
+            }
+            .post-content{
+                font-weight: 100;
+                font-size: 25px;
+            }
+            .post-date{
+                font-style:italic;
+            }
+            .post-user-info{
+                font-size: 20px;
+            }
+            .row-user{
+                border: 1px solid #e2e2e2;
+                padding-top: 15px;
+            }
+        </style>
     </head>
     <body>
 
@@ -83,19 +103,31 @@
 
         <div class="container">
             <div class="row my-4">
-                <div class="col-md-6 offset-md-3">
+                <div class="col-md-8 offset-md-2">
                     <div class="card">
                         <div class="card-header primary-background text-white text-center">
-                            <h4><%=p.getpTitle()%></h4>
+                            <h4 class="post-title"><%=p.getpTitle()%></h4>
                         </div>
 
                         <div class="card-body">
-                            <div class="image-container">
-                                <img class="img-fluid card-img-top my-2" src="blog_pics/<%=p.getpPic()%>" alt="Card image cap" >
+
+                            <img class="img-fluid card-img-top my-2" src="blog_pics/<%=p.getpPic()%>" alt="Card image cap" >
+
+                            <div class="row my-3 row-user">
+                                <div class="col-md-8">
+                                    <p class="post-user-info"><a href="#">Durgesh Tiwari</a> has posted:</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <p class="post-date"><%= p.getpDate().toLocaleString()%></p>
+                                </div>
                             </div>
-                            <p><%=p.getpContent()%></p>
+
+                            <p class="post-content"><%=p.getpContent()%></p>
                             <br>
-                            <pre><%=p.getpCode()%></pre>
+                            <br>
+                            <div class="post-code"> 
+                                <pre><%=p.getpCode()%></pre>
+                            </div>
                         </div>
 
                         <div class="card-footer primary-background text-white">
