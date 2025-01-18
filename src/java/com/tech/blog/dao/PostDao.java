@@ -2,6 +2,7 @@ package com.tech.blog.dao;
 
 import com.tech.blog.entities.Category;
 import com.tech.blog.entities.Post;
+import com.tech.blog.entities.User;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
