@@ -123,14 +123,13 @@
 
                             <div class="row my-3 row-user">
                                 <div class="col-md-8">
-                                    <% 
-                                        UserDao ud=new UserDao(ConnectionProvider.getConnection()); 
-                                        
-                                        User u=ud.getUserByPostId(postId);
-                                        
+                                    <%
+                                        UserDao ud = new UserDao(ConnectionProvider.getConnection());
+
+                                        User u = ud.getUserByPostId(postId);
+
                                         // Fetching the logged in user.
-                                        
-                                        User luser=(User)session.getAttribute("currentUser");
+                                        User luser = (User) session.getAttribute("currentUser");
                                     %>
                                     <p class="post-user-info"><a href="#"><%=u.getName()%></a> has posted:</p>
                                 </div>
@@ -149,11 +148,15 @@
 
                         <div class="card-footer primary-background text-white">
                             <%
-                                LikeDao ld=new LikeDao(ConnectionProvider.getConnection());
+                                LikeDao ld = new LikeDao(ConnectionProvider.getConnection());
                             %>
-                            
+
                             <a href="#!" onclick="doLike(<%=p.getPid()%>,<%=luser.getId()%>)" class="btn btn-outline-light primary-background btn-sm"><i class="fa fa-thumbs-o-up"></i><span class="like-counter"> <%=ld.countLikeOnPost(p.getPid())%></span></a>
                             <a href="#!" class="btn btn-outline-light primary-background btn-sm"><i class="fa fa-commenting"></i><span> 20</span></a>
+                        </div>
+
+                        <div class="card-footer">
+                            <div class="fb-comments" data-href="http://localhost:8080/TechnicalBlogWebsite/show_blog_page.jsp?post_id=<%=p.getPid()%>" data-width="" data-numposts="5"></div>
                         </div>
                     </div>
                 </div>
@@ -330,27 +333,28 @@
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
             <script src="./js/myjs.js"></script>
-
+            <div id="fb-root"></div>
+            <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v21.0"></script>
             <script>
-                $(document).ready(function () {
-                    let editStatus = false;
+                                $(document).ready(function () {
+                                    let editStatus = false;
 
-                    $('#edit-profile-button').click(function () {
-                        if (editStatus == false)
-                        {
-                            $('#profile-details').hide();
-                            $('#profile-edit').show();
-                            editStatus = true;
-                            $(this).text("Back");
-                        } else
-                        {
-                            $('#profile-details').show();
-                            $('#profile-edit').hide();
-                            editStatus = false;
-                            $(this).text("Edit");
-                        }
-                    });
-                });
+                                    $('#edit-profile-button').click(function () {
+                                        if (editStatus == false)
+                                        {
+                                            $('#profile-details').hide();
+                                            $('#profile-edit').show();
+                                            editStatus = true;
+                                            $(this).text("Back");
+                                        } else
+                                        {
+                                            $('#profile-details').show();
+                                            $('#profile-edit').hide();
+                                            editStatus = false;
+                                            $(this).text("Edit");
+                                        }
+                                    });
+                                });
             </script>
 
             <!--Now add post js-->
