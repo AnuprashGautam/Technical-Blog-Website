@@ -22,7 +22,7 @@
 
     <div class="col-md-6 mt-4">
         <div class="card">
-            <div class="card-body">
+            <div class="card-body" style="max-height: 300px; overflow: hidden;">
                 <img class="card-img-top" src="blog_pics/<%=p.getpPic()%>" alt="Card image cap">
                 <b><%= p.getpTitle()%></b>
                 <p><%= p.getpContent()%></p>
