@@ -126,6 +126,10 @@
                                         UserDao ud=new UserDao(ConnectionProvider.getConnection()); 
                                         
                                         User u=ud.getUserByPostId(postId);
+                                        
+                                        // Fetching the logged in user.
+                                        
+                                        User luser=(User)session.getAttribute("currentUser");
                                     %>
                                     <p class="post-user-info"><a href="#"><%=u.getName()%></a> has posted:</p>
                                 </div>
@@ -143,7 +147,7 @@
                         </div>
 
                         <div class="card-footer primary-background text-white">
-                            <a href="#!" onclick="doLike(<%=p.getPid()%>,<%=user.getId()%>)" class="btn btn-outline-light primary-background btn-sm"><i class="fa fa-thumbs-o-up"></i><span> 10</span></a>
+                            <a href="#!" onclick="doLike(<%=p.getPid()%>,<%=luser.getId()%>)" class="btn btn-outline-light primary-background btn-sm"><i class="fa fa-thumbs-o-up"></i><span> 10</span></a>
                             <a href="#!" class="btn btn-outline-light primary-background btn-sm"><i class="fa fa-commenting"></i><span> 20</span></a>
                         </div>
                     </div>

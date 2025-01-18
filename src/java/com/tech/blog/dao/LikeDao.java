@@ -21,6 +21,7 @@ public class LikeDao {
             p.setInt(2,uid);
             
             p.executeUpdate();
+            f=true;
         } catch (Exception e) {
             e.printStackTrace();
         }
