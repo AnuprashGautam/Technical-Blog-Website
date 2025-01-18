@@ -63,65 +63,63 @@ public class PostDao {
     }
 
     // Method to get all the posts in the form of a list.
-    public List<Post> getAllPosts(){
+    public List<Post> getAllPosts() {
         List<Post> list = new ArrayList<>();
-        
+
         // Fetch all the posts.
         try {
-            String query="SELECT * FROM posts ORDER BY pid DESC";
-            
-            PreparedStatement pstmt=con.prepareStatement(query);
-            ResultSet set=pstmt.executeQuery();
-            
-            while(set.next())
-            {
-                int pid=set.getInt("pid");
-                String pTitle=set.getString("pTitle");
-                String pContent=set.getString("pContent");
-                String pCode=set.getString("pCode");
-                String pPic=set.getString("pPic");
-                Timestamp date=set.getTimestamp("pDate");
-                int catId=set.getInt("catId");
-                int userId=set.getInt("userId");
-                
-                Post post=new Post(pid,pTitle, pContent, pCode, pPic, date, catId, userId);
-                
+            String query = "SELECT * FROM posts ORDER BY pid DESC";
+
+            PreparedStatement pstmt = con.prepareStatement(query);
+            ResultSet set = pstmt.executeQuery();
+
+            while (set.next()) {
+                int pid = set.getInt("pid");
+                String pTitle = set.getString("pTitle");
+                String pContent = set.getString("pContent");
+                String pCode = set.getString("pCode");
+                String pPic = set.getString("pPic");
+                Timestamp date = set.getTimestamp("pDate");
+                int catId = set.getInt("catId");
+                int userId = set.getInt("userId");
+
+                Post post = new Post(pid, pTitle, pContent, pCode, pPic, date, catId, userId);
+
                 list.add(post);
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
         return list;
     }
-    
+
     // Method to get all the posts by category.
-    public List<Post> getPostsByCatId(int catId){
-         List<Post> list = new ArrayList<>();
-        
+    public List<Post> getPostsByCatId(int catId) {
+        List<Post> list = new ArrayList<>();
+
         // Fetch all the posts by id.
         try {
-            String query="SELECT * FROM posts WHERE catId=? ORDER BY pid DESC";
-            
-            PreparedStatement pstmt=con.prepareStatement(query);
+            String query = "SELECT * FROM posts WHERE catId=? ORDER BY pid DESC";
+
+            PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setInt(1, catId);
-            ResultSet set=pstmt.executeQuery();
-            
-            while(set.next())
-            {
-                int pid=set.getInt("pid");
-                String pTitle=set.getString("pTitle");
-                String pContent=set.getString("pContent");
-                String pCode=set.getString("pCode");
-                String pPic=set.getString("pPic");
-                Timestamp date=set.getTimestamp("pDate");
-                int userId=set.getInt("userId");
-                
-                Post post=new Post(pid,pTitle, pContent, pCode, pPic, date, catId, userId);
-                
+            ResultSet set = pstmt.executeQuery();
+
+            while (set.next()) {
+                int pid = set.getInt("pid");
+                String pTitle = set.getString("pTitle");
+                String pContent = set.getString("pContent");
+                String pCode = set.getString("pCode");
+                String pPic = set.getString("pPic");
+                Timestamp date = set.getTimestamp("pDate");
+                int userId = set.getInt("userId");
+
+                Post post = new Post(pid, pTitle, pContent, pCode, pPic, date, catId, userId);
+
                 list.add(post);
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
